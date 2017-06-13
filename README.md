@@ -4,11 +4,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 The notes below may be used to incorporate the following d3 v4 example into an angular application using the cli.
 
-## Notes
-
-Here is a d3 v4 example - a Scatterplot showing baseball data
-Note that there is an HTML file which includes CSS and javascript code
 http://blockbuilder.org/syntagmatic/ba23d525f8986cb0ebf30a5dd30c9dd2
+
+The example is a scatterplot showing baseball data.
+Note that the example contains an HTML file (index.html) which includes CSS and javascript code.
+
+## Notes
 
 Here are the steps to prepare the angular cli application:
 ..*
@@ -67,32 +68,38 @@ cut and paste the closing grammar (for the d3.csv function) from createChart to 
     });
 
 in createChart, comment out the 1st line, below, and add the 2nd line
+    
     //let color = d3.scaleCategory20();
-
     let color = d3.scaleOrdinal(d3.schemeCategory20);
 
 in createChart, comment out the 1st line, below, and add the 2nd line
+    
     // let svg = d3.select("body")
-
     let svg = d3.select("#baseball")
 
 In order to get :hover to work in the css file, you need to add a reference to ViewEncapsulation 
-	import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
+	
+    import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 and then add this line to the component decorator, after styleUrls:
- 	encapsulation: ViewEncapsulation.None 
+ 	
+     encapsulation: ViewEncapsulation.None 
 	// https://stackoverflow.com/questions/38798002/angular-2-styling-not-applying-to-child-component
 
-
 in ngOnInit, add a call to this.getData();
+
+  ngOnInit() {
+    this.getData();
+  }
+
+then, your baseball d3 app should be ready to roll:
 
 ng serve -o
 
 
-I created a github repository, and then associated this project with that repo
-	git remote add origin https://github.com/wjzabs/d3v4angular2.git
-	git push -u origin master
+I then created this github repository, and  associated this project with that repo
+- git remote add origin https://github.com/wjzabs/d3v4angular2.git
+- git push -u origin master
 
 to add drag and drop (refer to the code in the github repository), 
 - I added a block of code to append .call(d3.drag() to the group element, and 
