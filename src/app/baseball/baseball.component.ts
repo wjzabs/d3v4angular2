@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import * as d3 from 'd3';
 @Component({
   selector: 'app-baseball',
   templateUrl: './baseball.component.html',
-  styleUrls: ['./baseball.component.css']
+  styleUrls: ['./baseball.component.css'],
+  encapsulation: ViewEncapsulation.None // <------
 })
 export class BaseballComponent implements OnInit {
 
@@ -43,7 +44,9 @@ export class BaseballComponent implements OnInit {
     let width = 960 - margin.left - margin.right;
     let height = 500 - margin.top - margin.bottom;
 
-    let svg = d3.select("body")
+    // let svg = d3.select("body")
+    let svg = d3.select("#baseball")
+    
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -123,33 +126,33 @@ export class BaseballComponent implements OnInit {
         return d["name1"] + " " + d["name2"];
       });
 
-    group
-      .call(d3.drag()
-        .on("start", function (d: any, i) {
-          d3.select(this).raise().classed("drag-active", true);
-          d.xm0 = d3.event.x;
-          d.ym0 = d3.event.y;
-          d.xm1 = d3.event.x;
-          d.ym1 = d3.event.y;
-        }) // this.dragstarted)
-        .on("drag", function (d: any, i) {
-          //console.log('drag drag', d.xa, d.ya, d3.event);
-          d.xm1 = d3.event.x;
-          d.ym1 = d3.event.y;
-          d.xa = d.xm1 - d.xm0;
-          d.ya = d.ym1 - d.ym0;
-          d3.selectAll(".drag-active")
-            .attr("transform", function (d: any, i) {
-              return "translate(" + (xscale(d.x) + d.xaa + d.xa) + "," + (yscale(d.y) + d.yaa + d.ya) + ")"
-            })
-        }) // this.dragged)
-        .on("end", function (d: any, i) {
-          //  console.log('drag end', d.xa, d.ya, d3.event)
-          d.xaa = d.xaa + d.xa;
-          d.yaa = d.yaa + d.ya;
-          d3.select(this).classed("drag-active", false);
-        }) // this.dragended))
-      )
+    // group
+    //   .call(d3.drag()
+    //     .on("start", function (d: any, i) {
+    //       d3.select(this).raise().classed("drag-active", true);
+    //       d.xm0 = d3.event.x;
+    //       d.ym0 = d3.event.y;
+    //       d.xm1 = d3.event.x;
+    //       d.ym1 = d3.event.y;
+    //     }) // this.dragstarted)
+    //     .on("drag", function (d: any, i) {
+    //       //console.log('drag drag', d.xa, d.ya, d3.event);
+    //       d.xm1 = d3.event.x;
+    //       d.ym1 = d3.event.y;
+    //       d.xa = d.xm1 - d.xm0;
+    //       d.ya = d.ym1 - d.ym0;
+    //       d3.selectAll(".drag-active")
+    //         .attr("transform", function (d: any, i) {
+    //           return "translate(" + (xscale(d.x) + d.xaa + d.xa) + "," + (yscale(d.y) + d.yaa + d.ya) + ")"
+    //         })
+    //     }) // this.dragged)
+    //     .on("end", function (d: any, i) {
+    //       //  console.log('drag end', d.xa, d.ya, d3.event)
+    //       d.xaa = d.xaa + d.xa;
+    //       d.yaa = d.yaa + d.ya;
+    //       d3.select(this).classed("drag-active", false);
+    //     }) // this.dragended))
+    //   )
 
     svg.append("text")
       .attr("x", 6)
