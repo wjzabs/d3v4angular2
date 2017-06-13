@@ -2,9 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.0.
 
-The notes below may be used to incorporate the following d3 v4 example into an angular application using the cli.
-
-http://blockbuilder.org/syntagmatic/ba23d525f8986cb0ebf30a5dd30c9dd2
+The notes below may be used to incorporate a [d3 v4 example](http://blockbuilder.org/syntagmatic/ba23d525f8986cb0ebf30a5dd30c9dd2) into an angular application using the cli.
 
 The example is a scatterplot showing baseball data.  
 Note that the example contains an HTML file (index.html) which includes CSS and javascript code.
@@ -19,7 +17,7 @@ npm install d3 --save	// install the d3 library using npm
 ng g component baseball	//create a component to be used for the baseball scatterplot
 ```
 
-From the example page, pull down Baseball.csv and place it in the assets folder of the project
+From the [blockbuilder example page](http://blockbuilder.org/syntagmatic/ba23d525f8986cb0ebf30a5dd30c9dd2), pull down Baseball.csv and place it in the assets folder of the project
 
 Note - *pay attention to case* - **B**aseball
 
@@ -92,7 +90,7 @@ in createChart, comment out the 1st line, below, and add the 2nd line
     let svg = d3.select("#baseball")
 ```
 
-In order to get :hover to work in the css file, you need to add a reference to ViewEncapsulation (thanks to this article https://stackoverflow.com/questions/38798002/angular-2-styling-not-applying-to-child-componen)
+In order to get :hover to work in the css file, you need to add a reference to ViewEncapsulation, [thanks to this stackoverflow article](https://stackoverflow.com/questions/38798002/angular-2-styling-not-applying-to-child-component)
 ```javascript
     import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 ```
