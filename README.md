@@ -7,6 +7,7 @@ The notes below may be used to incorporate the following d3 v4 example into an a
 http://blockbuilder.org/syntagmatic/ba23d525f8986cb0ebf30a5dd30c9dd2
 
 The example is a scatterplot showing baseball data.
+
 Note that the example contains an HTML file (index.html) which includes CSS and javascript code.
 
 ## Notes
@@ -20,15 +21,22 @@ ng g component baseball	//create a component to be used for the baseball scatter
 ```
 
 From the example page, pull down Baseball.csv and place it in the assets folder of the project
-Note - pay attention to case - Baseball
+
+Note - *pay attention to case* - **B**aseball
 
 Then, using your favorite code editor ...
 
-In app.component.html, replace everything with <app-baseball></app-baseball>
+In app.component.html, replace everything with 
+``` 
+<app-baseball></app-baseball>
+``` 
 
-Copy and paste all of the CSS from the HTML example (index.html) into baseball.css
+Copy and paste all of the CSS from the HTML example (index.html) into baseball.css, and replace the body tag with #baseball.
 
-In baseball.html, replace everything with <div id="baseball"></div>
+In baseball.html, replace everything with 
+```
+<div id="baseball"></div>
+```
 
 In baseball.ts
 - add import * as d3 from 'd3';
