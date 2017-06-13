@@ -46,7 +46,7 @@ export class BaseballComponent implements OnInit {
 
     // let svg = d3.select("body")
     let svg = d3.select("#baseball")
-    
+
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -117,6 +117,28 @@ export class BaseballComponent implements OnInit {
       .style("fill", function (d) {
         return color(d["team86"]);
       })
+      .on("mouseover", function (d) {
+        // console.log(d3.event);
+        let player = d["name1"] + " " + d["name2"];
+        d3.selectAll(".mytooltip")
+          .html("<div>Player:" + player + "<br/><br/>"
+          + "<span style='text-align:left;'>Runs:</span>"
+          + "<span style='text-align:right;'>" + d["runs86"] + "</span>" + "<br/>"
+          + "<span style='text-align:left;'>At-Bats:</span>"
+          + "<span style='text-align:right;'>" + d["atbat86"] + "</span>" + "<br/>"
+          + "<span style='text-align:left;'>Homers:</span>"
+          + "<span style='text-align:right;'>" + d["homer86"] + "</span>" + "<br/>")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 120) + "px")
+          .transition().duration(200)
+          .style("opacity", .9);
+      })
+      .on("mouseout", function (d) {
+        d3.selectAll(".mytt")
+          .transition().duration(500)
+          .style("opacity", 0);
+      })
+
 
     group
       .append("text")

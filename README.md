@@ -120,6 +120,7 @@ git push -u origin master
 to add drag and drop (refer to the code in the github repository)
 - I added a block of code to append .call(d3.drag() to the group element, and 
 - I initialized a few properties (xa, ya, xaa, yaa) of the data node in getData.
-there is probably a more graceful way to do this, but I was struggling with relative coordinates.
+  
+There is probably a more graceful way to do this, but I was struggling with relative coordinates.
 
 To perform additional logic after the drop operation, replace my console.log with whatever you need to do.
