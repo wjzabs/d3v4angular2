@@ -136,7 +136,7 @@ export class BaseballComponent implements OnInit {
           d.ym1 = d3.event.y;
         }) // this.dragstarted)
         .on("drag", function (d: any, i) {
-          //console.log('drag drag', d.xa, d.ya, d3.event);
+          console.log('drag started', d.xa, d.ya, d3.event);
           d.xm1 = d3.event.x;
           d.ym1 = d3.event.y;
           d.xa = d.xm1 - d.xm0;
@@ -147,7 +147,7 @@ export class BaseballComponent implements OnInit {
             })
         }) // this.dragged)
         .on("end", function (d: any, i) {
-          //  console.log('drag end', d.xa, d.ya, d3.event)
+          console.log('drag ended', d.xa, d.ya, d3.event)
           d.xaa = d.xaa + d.xa;
           d.yaa = d.yaa + d.ya;
           d3.select(this).classed("drag-active", false);
