@@ -124,3 +124,29 @@ to add drag and drop (refer to the code in the github repository)
 There is probably a more graceful way to do this, but I was struggling with relative coordinates.
 
 To perform additional logic after the drop operation, replace my console.log with whatever you need to do.
+
+I also added a more robust tooltip revealing more of the data when you hover over a player's circle.  
+Code was added to the baseball.html, baseball.css and baseball.ts files - look for tooltip in the code.
+
+I added zoom & pan by inserting this code, which places a rectangle over most of the svg, and allows you to scroll your mouse wheel to zoom in and out, as well as to mousedown and move the entire svg.
+```javascript
+    let zoomed = function () {
+      svg.attr("transform", d3.event.transform);
+    }
+
+    let view = svg.append("rect")
+      .attr("class", "view")
+      .attr("x", 0.5)
+      .attr("y", 0.5)
+      .attr("width", width - 1)
+      .attr("height", height - 1)
+      .style("fill", "none")
+      .style("pointer-events", "all")
+      .call(d3.zoom()
+        .scaleExtent([1 / 2, 10])
+        .on("zoom", zoomed));
+```
+
+There is some screen jank / performance issue when you pan.  
+We had this and fixed it in other projects.  
+I don't remember what we did to fix it, but I will update these notes when I find it again.

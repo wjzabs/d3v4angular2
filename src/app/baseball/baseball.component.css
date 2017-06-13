@@ -48,7 +48,7 @@ circle {
   fill-opacity: 1;
 }
 
-.mytoottip {
+.mytooltip {
   position: absolute;
   text-align: center;
   width: 180px;
@@ -61,4 +61,8 @@ circle {
   pointer-events: none;
   opacity: 0;
   color: black;
+}
+
+.view {
+  fill: transparent;
 }

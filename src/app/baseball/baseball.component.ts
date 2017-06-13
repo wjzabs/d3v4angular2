@@ -53,6 +53,25 @@ export class BaseballComponent implements OnInit {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+
+    let zoomed = function () {
+      svg.attr("transform", d3.event.transform);
+    }
+
+    let view = svg.append("rect")
+      .attr("class", "view")
+      .attr("x", 0.5)
+      .attr("y", 0.5)
+      .attr("width", width - 1)
+      .attr("height", height - 1)
+      .style("fill", "none")
+      .style("pointer-events", "all")
+      .call(d3.zoom()
+        .scaleExtent([1 / 2, 10])
+        .on("zoom", zoomed));
+
+
     let xscale = d3.scaleLinear()
       .domain([0, 800])
       .range([0, width]);
@@ -118,24 +137,21 @@ export class BaseballComponent implements OnInit {
         return color(d["team86"]);
       })
       .on("mouseover", function (d) {
-        // console.log(d3.event);
+        console.log(d3.event);
         let player = d["name1"] + " " + d["name2"];
         d3.selectAll(".mytooltip")
           .html("<div>Player:" + player + "<br/><br/>"
-          + "<span style='text-align:left;'>Runs:</span>"
-          + "<span style='text-align:right;'>" + d["runs86"] + "</span>" + "<br/>"
-          + "<span style='text-align:left;'>At-Bats:</span>"
-          + "<span style='text-align:right;'>" + d["atbat86"] + "</span>" + "<br/>"
-          + "<span style='text-align:left;'>Homers:</span>"
-          + "<span style='text-align:right;'>" + d["homer86"] + "</span>" + "<br/>")
-          .style("left", (d3.event.pageX) + "px")
-          .style("top", (d3.event.pageY - 120) + "px")
+          + "<span>Runs:" + d["runs86"] + "</span>" + "<br/>"
+          + "<span>At-Bats:" + d["atbat86"] + "</span>" + "<br/>"
+          + "<span>Homers:" + d["homer86"] + "</span>" + "<br/>")
+          .style("left", function (d) { return d3.event.pageX + "px" })
+          .style("top", function (d) { return (d3.event.pageY - 120) + "px" })
           .transition().duration(200)
           .style("opacity", .9);
       })
       .on("mouseout", function (d) {
-        d3.selectAll(".mytt")
-          .transition().duration(500)
+        d3.selectAll(".mytooltip")
+          .transition().duration(600)
           .style("opacity", 0);
       })
 
@@ -224,6 +240,9 @@ export class BaseballComponent implements OnInit {
         d3.selectAll(".bubble")
           .style("opacity", 1);
       });
+
+
+
     // });    
   }
 }
