@@ -2,27 +2,99 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.0.
 
-## Development server
+The notes below may be used to incorporate the following d3 v4 example into an angular application using the cli.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Notes
 
-## Code scaffolding
+Here is a d3 v4 example - a Scatterplot showing baseball data
+Note that there is an HTML file which includes CSS and javascript code
+http://blockbuilder.org/syntagmatic/ba23d525f8986cb0ebf30a5dd30c9dd2
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+Here are the steps to prepare the angular cli application:
+..*
+ng new d3v4angular2
+cd d3v4angular2
+npm install d3 --save	// install the d3 library using npm
+ng g component baseball	//create a component to be used for the baseball scatterplot
 
-## Build
+From the example page, pull down Baseball.csv and place it in the assets folder of the project
+Note - pay attention to case - Baseball
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Then, using your favorite code editor ...
 
-## Running unit tests
+In app.component.html, replace everything with <app-baseball></app-baseball>
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Copy and paste all of the CSS from the HTML example (index.html) into baseball.css
 
-## Running end-to-end tests
+In baseball.html, replace everything with <div id="baseball"></div>
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+In baseball.ts
+add import * as d3 from 'd3';
+create a new method called createChart(data)
+paste all of the javascript code from the example (index.html) into createChart
+replace all instances of var with let
+change "Baseball.csv" to "assets/Baseball.csv"
 
-## Further help
+create a new method called getData()
+insert (as the 1st line of getData)
+    let that = this;
+ 
+cut the following lines from createChart, and paste to getData
+    d3.csv("assets/Baseball.csv", function (error, data) {
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+      console.log(data);
+
+      // data pre-processing
+
+      data.forEach(function (d) {
+
+        d.y = +d["runs86"];
+
+        d.x = +d["atbat86"];
+
+        d.r = +d["homer86"];
+
+      });
+
+
+      data.sort(function (a, b) { return b.r - a.r; });
+
+Add a call to createChart using "that"
+      that.createChart(data);
+
+
+cut and paste the closing grammar (for the d3.csv function) from createChart to getData
+    });
+
+in createChart, comment out the 1st line, below, and add the 2nd line
+    //let color = d3.scaleCategory20();
+
+    let color = d3.scaleOrdinal(d3.schemeCategory20);
+
+in createChart, comment out the 1st line, below, and add the 2nd line
+    // let svg = d3.select("body")
+
+    let svg = d3.select("#baseball")
+
+In order to get :hover to work in the css file, you need to add a reference to ViewEncapsulation 
+	import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+
+
+and then add this line to the component decorator, after styleUrls:
+ 	encapsulation: ViewEncapsulation.None 
+	// https://stackoverflow.com/questions/38798002/angular-2-styling-not-applying-to-child-component
+
+
+in ngOnInit, add a call to this.getData();
+
+ng serve -o
+
+
+I created a github repository, and then associated this project with that repo
+	git remote add origin https://github.com/wjzabs/d3v4angular2.git
+	git push -u origin master
+
+to add drag and drop (refer to the code in the github repository), 
+- I added a block of code to append .call(d3.drag() to the group element, and 
+- I initialized a few properties (xa, ya, xaa, yaa) of the data node in getData.
+
