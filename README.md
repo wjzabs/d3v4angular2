@@ -6,8 +6,7 @@ The notes below may be used to incorporate the following d3 v4 example into an a
 
 http://blockbuilder.org/syntagmatic/ba23d525f8986cb0ebf30a5dd30c9dd2
 
-The example is a scatterplot showing baseball data.
-
+The example is a scatterplot showing baseball data.  
 Note that the example contains an HTML file (index.html) which includes CSS and javascript code.
 
 ## Notes
@@ -32,6 +31,12 @@ In app.component.html, replace everything with
 ``` 
 
 Copy and paste all of the CSS from the HTML example (index.html) into baseball.css, and replace the body tag with #baseball.
+``` 
+#baseball {
+  margin: 0;
+  font-family: arial, sans;
+}
+``` 
 
 In baseball.html, replace everything with 
 ```
@@ -87,7 +92,7 @@ in createChart, comment out the 1st line, below, and add the 2nd line
     let svg = d3.select("#baseball")
 ```
 
-In order to get :hover to work in the css file, you need to add a reference to ViewEncapsulation 
+In order to get :hover to work in the css file, you need to add a reference to ViewEncapsulation (thanks to this article https://stackoverflow.com/questions/38798002/angular-2-styling-not-applying-to-child-componen)
 ```javascript
     import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 ```
@@ -95,7 +100,6 @@ In order to get :hover to work in the css file, you need to add a reference to V
 and then add this line to the component decorator, after styleUrls:
 ```javascript
      encapsulation: ViewEncapsulation.None 
-	// https://stackoverflow.com/questions/38798002/angular-2-styling-not-applying-to-child-component
 ```
 
 in ngOnInit, add a call to this.getData();
@@ -116,7 +120,7 @@ git remote add origin https://github.com/wjzabs/d3v4angular2.git
 git push -u origin master
 ```
 
-to add drag and drop (refer to the code in the github repository), 
+to add drag and drop (refer to the code in the github repository)
 - I added a block of code to append .call(d3.drag() to the group element, and 
 - I initialized a few properties (xa, ya, xaa, yaa) of the data node in getData.
-
+there is probably a more graceful way to do this, but I was struggling with relative coordinates.

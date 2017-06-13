@@ -4,7 +4,7 @@ import * as d3 from 'd3';
   selector: 'app-baseball',
   templateUrl: './baseball.component.html',
   styleUrls: ['./baseball.component.css'],
-  encapsulation: ViewEncapsulation.None // <------ https://stackoverflow.com/questions/38798002/angular-2-styling-not-applying-to-child-component
+  encapsulation: ViewEncapsulation.None
 })
 export class BaseballComponent implements OnInit {
 
